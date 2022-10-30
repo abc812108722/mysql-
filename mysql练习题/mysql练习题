@@ -55,3 +55,26 @@ FROM
 SELECT DEPTNO,avg(sal) avgsal from emp GROUP BY DEPTNO ORDER BY avgsal desc LIMIT 0,1
 6、取得平均薪水最高的部门的部门名称
 SELECT a.dname from dept a join (SELECT DEPTNO,avg(sal) from emp GROUP BY DEPTNO ORDER BY DEPTNO  LIMIT 0,1) b on a.DEPTNO = b.DEPTNO
+7、求平均薪水的等级最低的部门的部门名称
+第一种：
+-- SELECT deptno,avg(sal) avgsal from emp GROUP BY DEPTNO 
+-- SELECT s.grade,d.deptno from salgrade s join (SELECT deptno,avg(sal) avgsal from emp GROUP BY DEPTNO) d on d.avgsal > s.LOSAL and d.avgsal <s.HISAL ORDER BY GRADE	asc LIMIT 0,1
+SELECT
+	dept.DNAME 
+FROM
+	dept
+	JOIN (
+	SELECT
+		s.grade,
+		d.deptno 
+	FROM
+		salgrade s
+		JOIN ( SELECT deptno, avg( sal ) avgsal FROM emp GROUP BY DEPTNO ) d ON d.avgsal > s.LOSAL 
+		AND d.avgsal < s.HISAL 
+	ORDER BY
+		GRADE ASC 
+		LIMIT 0,
+	1 
+	) a ON a.deptno = dept.DEPTNO
+第二种：
+select avg(sal) as avgsal from emp group by deptno order by avgsal asc limit 1
