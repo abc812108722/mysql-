@@ -108,3 +108,9 @@ FROM
 	JOIN dept d ON d.DEPTNO = s.DEPTNO 
 WHERE
 	s.HIREDATE < e.HIREDATE
+16、 列出部门名称和这些部门的员工信息, 同时列出那些没有员工的部门
+SELECT d.dname,e.ename from dept d left join emp e on d.DEPTNO = e.DEPTNO
+17、列出至少有 5 个员工的所有部门
+SELECT e.DEPTNO from emp e GROUP BY e.DEPTNO HAVING COUNT(e.ENAME) >=5
+18、列出薪金比"SMITH" 多的所有员工信息
+SELECT ename from emp where sal>(SELECT sal from emp WHERE ename = "SMITH")
