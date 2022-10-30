@@ -52,5 +52,6 @@ FROM
 第一种：SELECT sal from emp ORDER BY sal desc limit 0,1
 第二种:SELECT e.sal from emp e where e.sal not in (select distinct a.sal from emp a join emp b on a.sal < b.sal)
 5、取得平均薪水最高的部门的部门编号
-第一种：SELECT DEPTNO,avg(sal) avgsal from emp GROUP BY DEPTNO ORDER BY avgsal desc LIMIT 0,1
-第二种：SELECT DEPTNO,max(a.avgsal) from (SELECT DEPTNO,avg(sal) avgsal from emp GROUP BY DEPTNO) a 
+SELECT DEPTNO,avg(sal) avgsal from emp GROUP BY DEPTNO ORDER BY avgsal desc LIMIT 0,1
+6、取得平均薪水最高的部门的部门名称
+SELECT a.dname from dept a join (SELECT DEPTNO,avg(sal) from emp GROUP BY DEPTNO ORDER BY DEPTNO  LIMIT 0,1) b on a.DEPTNO = b.DEPTNO
