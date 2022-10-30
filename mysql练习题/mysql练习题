@@ -1,0 +1,33 @@
+1、取得每个部门最高薪水的人员名称
+SELECT
+	t.ename,
+	n.dname,
+	t.ms 
+FROM
+	(
+	SELECT
+		ENAME,
+		b.DEPTNO,
+		ms 
+	FROM
+		emp a
+		JOIN ( SELECT DEPTNO, max( sal ) AS ms FROM emp GROUP BY DEPTNO ) b ON a.sal = b.ms 
+		AND b.DEPTNO = a.DEPTNO 
+	) AS t
+	JOIN dept n ON t.DEPTNO = n.DEPTNO
+  2.哪些人的薪水在部门的平均薪水之上
+  SELECT
+	a.DNAME,
+	b.* 
+FROM
+	dept a
+	JOIN (
+	SELECT
+		t.*,
+		e.ename,
+		e.sal 
+	FROM
+		emp e
+		JOIN ( SELECT deptno, avg( sal ) AS avgsal FROM emp GROUP BY deptno ) t ON e.deptno = t.deptno 
+	AND e.sal > t.avgsal 
+	) b ON a.deptno = b.deptno
