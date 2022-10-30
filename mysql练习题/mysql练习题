@@ -95,3 +95,5 @@ SELECT ename,sal from emp ORDER BY sal desc limit 5,5
 SELECT ename,HIREDATE from emp ORDER BY HIREDATE desc limit 0,5
 12、取得每个薪水等级有多少员工
 SELECT s.GRADE,COUNT(*) from emp join salgrade s on emp.sal>s.LOSAL and emp.sal <s.HISAL GROUP BY s.GRADE
+14、列出所有员工及领导的姓名
+SELECT e.ename,d.ename manager from emp e join emp d on e.mgr = d.EMPNO
