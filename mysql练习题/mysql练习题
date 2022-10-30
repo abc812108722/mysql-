@@ -51,3 +51,6 @@ FROM
 4、不准用组函数（Max ），取得最高薪水
 第一种：SELECT sal from emp ORDER BY sal desc limit 0,1
 第二种:SELECT e.sal from emp e where e.sal not in (select distinct a.sal from emp a join emp b on a.sal < b.sal)
+5、取得平均薪水最高的部门的部门编号
+第一种：SELECT DEPTNO,avg(sal) avgsal from emp GROUP BY DEPTNO ORDER BY avgsal desc LIMIT 0,1
+第二种：SELECT DEPTNO,max(a.avgsal) from (SELECT DEPTNO,avg(sal) avgsal from emp GROUP BY DEPTNO) a 
