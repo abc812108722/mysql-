@@ -85,4 +85,13 @@ FROM
 	emp a 
 WHERE
 	a.mgr IS NULL 
-	AND a.sal > ( SELECT max( sal ) FROM emp WHERE mgr IS NOT NULL )
+	AND a.sal > ( SELECT max( sal ) FROM
+	emp WHERE mgr IS NOT NULL )
+9、取得薪水最高的前五名员工
+SELECT ename,sal from emp ORDER BY sal desc limit 0,5
+10、取得薪水最高的第六到第十名员工
+SELECT ename,sal from emp ORDER BY sal desc limit 5,5
+11、取得最后入职的 5 名员工
+SELECT ename,HIREDATE from emp ORDER BY HIREDATE desc limit 0,5
+12、取得每个薪水等级有多少员工
+SELECT s.GRADE,COUNT(*) from emp join salgrade s on emp.sal>s.LOSAL and emp.sal <s.HISAL GROUP BY s.GRADE
