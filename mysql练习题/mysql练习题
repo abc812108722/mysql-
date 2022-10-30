@@ -78,3 +78,11 @@ FROM
 	) a ON a.deptno = dept.DEPTNO
 第二种：
 select avg(sal) as avgsal from emp group by deptno order by avgsal asc limit 1
+8、取得比普通员工(员工代码没有在 mgr 字段上出现的) 的最高薪水还要高的领导人姓名
+SELECT
+	a.ename 
+FROM
+	emp a 
+WHERE
+	a.mgr IS NULL 
+	AND a.sal > ( SELECT max( sal ) FROM emp WHERE mgr IS NOT NULL )
