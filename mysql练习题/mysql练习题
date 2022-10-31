@@ -211,3 +211,12 @@ FROM
 	LEFT JOIN emp b ON a.DEPTNO = b.DEPTNO 
 GROUP BY
 	a.DEPTNO
+29、列出各种工作的最低工资及从事此工作的雇员姓名
+SELECT
+	a.ENAME,
+	a.job,
+	b.avgsal 
+FROM
+	emp a
+	JOIN ( SELECT job, min( sal ) avgsal FROM emp GROUP BY job ) b ON a.job = b.job 
+	AND a.sal = b.avgsal
