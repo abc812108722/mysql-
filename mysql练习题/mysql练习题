@@ -141,3 +141,21 @@ WHERE
 		dept 
 WHERE
 	DNAME = "sales")
+22、列出薪金高于公司平均薪金的所有员工, 所在部门, 上级领导, 雇员的工资等级.
+SELECT
+	a.ENAME,
+	b.DNAME,
+	c.ENAME manager,
+	a.sal,
+	d.GRADE 
+FROM
+	emp a
+	JOIN dept b ON a.DEPTNO = b.DEPTNO
+	JOIN emp c ON a.mgr = c.EMPNO
+	JOIN salgrade d ON a.sal > d.LOSAL 
+	AND a.sal <= d.HISAL WHERE a.sal > (
+	SELECT
+		avg( sal ) AS avgsal 
+	FROM
+	emp 
+	)
