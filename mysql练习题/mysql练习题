@@ -159,3 +159,14 @@ FROM
 	FROM
 	emp 
 	)
+23、 列出与"SCOTT" 从事相同工作的所有员工及部门名称
+SELECT
+	a.ENAME,
+	a.job,
+	b.DNAME 
+FROM
+	emp a
+	JOIN dept b ON a.DEPTNO = b.DEPTNO 
+WHERE
+	job = ( SELECT job FROM emp WHERE ENAME = "SCOTT" ) 
+	AND ENAME != "SCOTT"
