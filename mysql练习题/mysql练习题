@@ -187,3 +187,16 @@ WHERE
 	WHERE
 	DEPTNO = 30 
 	)
+26、列出在每个部门工作的员工数量, 平均工资和平均服务期限
+
+没有员工的部门，部门人数是0
+SELECT
+	b.DEPTNO,
+	count( ename ),
+	IFNULL( avg( a.sal ), 0 ),
+	ifnull( avg( timestampdiff( YEAR, a.HIREDATE, now())), 0 ) 
+FROM
+	emp a
+	RIGHT JOIN dept b ON a.DEPTNO = b.DEPTNO 
+GROUP BY
+	DEPTNO
