@@ -202,3 +202,12 @@ GROUP BY
 	DEPTNO
 27、 列出所有员工的姓名、部门名称和工资。
 SELECT a.ENAME,b.DNAME,a.SAL from emp a join dept b on a.DEPTNO=b.DEPTNO 
+28、列出所有部门的详细信息和人数
+SELECT
+	a.*,
+	count( b.ename ) 
+FROM
+	dept a
+	LEFT JOIN emp b ON a.DEPTNO = b.DEPTNO 
+GROUP BY
+	a.DEPTNO
