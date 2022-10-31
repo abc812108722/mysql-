@@ -128,3 +128,4 @@ WHERE
 20、列出最低薪金大于 1500 的各种工作及从事此工作的全部雇员人数
 按照工作岗位分组求最小值。
 select job,count(*) from emp group by job having min(sal) > 1500;
+21、列出在部门"SALES"< 销售部> 工作的员工的姓名, 假定不知道销售部的部门编号.
