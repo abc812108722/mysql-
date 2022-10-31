@@ -125,3 +125,6 @@ FROM
 	JOIN ( SELECT DEPTNO, count( DEPTNO ) AS cod FROM emp GROUP BY DEPTNO ) c ON c.DEPTNO = a.DEPTNO 
 WHERE
 	job = "CLERK"
+20、列出最低薪金大于 1500 的各种工作及从事此工作的全部雇员人数
+按照工作岗位分组求最小值。
+select job,count(*) from emp group by job having min(sal) > 1500;
