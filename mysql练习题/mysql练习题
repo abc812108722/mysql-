@@ -200,3 +200,5 @@ FROM
 	RIGHT JOIN dept b ON a.DEPTNO = b.DEPTNO 
 GROUP BY
 	DEPTNO
+27、 列出所有员工的姓名、部门名称和工资。
+SELECT a.ENAME,b.DNAME,a.SAL from emp a join dept b on a.DEPTNO=b.DEPTNO 
