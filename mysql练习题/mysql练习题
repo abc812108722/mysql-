@@ -95,6 +95,19 @@ SELECT ename,sal from emp ORDER BY sal desc limit 5,5
 SELECT ename,HIREDATE from emp ORDER BY HIREDATE desc limit 0,5
 12、取得每个薪水等级有多少员工
 SELECT s.GRADE,COUNT(*) from emp join salgrade s on emp.sal>s.LOSAL and emp.sal <s.HISAL GROUP BY s.GRADE
+13、面试题：
+有 3 个表 S(学生表)，C（课程表），SC（学生选课表）
+S（SNO，SNAME）代表（学号，姓名）
+C（CNO，CNAME，CTEACHER）代表（课号，课名，教师）
+SC（SNO，CNO，SCGRADE）代表（学号，课号，成绩）
+问题：
+1，找出没选过“黎明”老师的所有学生姓名。
+SELECT sname from s where sname not in (SELECT s.sname  from s join sc on s.sno = sc.sno join c on sc.cno = c.cno where c.cteacher = "黎明")
+2，列出 2 门以上（含2 门）不及格学生姓名及平均成绩。
+SELECT b.sname,avg(sc.scgrade) avggrade from sc join (SELECT s.sno,s.sname from s join sc on s.sno = sc.sno join c on sc.cno = c.cno where sc.scgrade < 60 GROUP BY s.sname HAVING COUNT(sc.scgrade) >=2) b on sc.sno = b.sno
+3，即学过 1 号课程又学过 2 号课所有学生的姓名。
+
+SELECT s.sname from s join sc on s.sno = sc.sno join c on sc.cno = c.cno where sc.cno =1 and s.sname in (SELECT s.sname from s join sc on s.sno = sc.sno join c on sc.cno = c.cno where sc.cno =2)
 14、列出所有员工及领导的姓名
 SELECT e.ename,d.ename manager from emp e join emp d on e.mgr = d.EMPNO
 15、列出受雇日期早于其直接上级的所有员工的编号,姓名,部门名称
